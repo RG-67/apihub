@@ -13,7 +13,7 @@ export default async function authRoutes(app: any) {
     const service = new AuthService(repo);
     const controller = new AuthController(service);
 
-    app.post('/', { schema: userRegisterSchema }, controller.create)
+    app.post('/register', { schema: userRegisterSchema }, controller.create)
         .post('/login', { schema: userLoginSchema }, controller.login);
 
 

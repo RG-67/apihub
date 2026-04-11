@@ -72,10 +72,11 @@ const userLoginSchema = {
                 data: {
                     type: "object",
                     properties: {
-                        id: {type: "string"},
-                        name: {type: "string"},
-                        email: {type: "string"},
-                        role: {type: "string"}
+                        id: { type: "string" },
+                        name: { type: "string" },
+                        email: { type: "string" },
+                        role: { type: "string" },
+                        token: { type: "string" }
                     }
                 }
             }
