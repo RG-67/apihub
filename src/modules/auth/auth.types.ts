@@ -5,9 +5,7 @@ export interface createUserType {
 }
 
 
-export interface getUserType {
-    id: string,
-    name: string,
+export interface loginUserType {
     email: string,
-    role: string
+    password: string
 }

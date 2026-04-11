@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import { AuthRepository } from "./auth.repository";
 import { AuthService } from "./auth.services";
 import { AuthController } from "./auth.controller";
-import { userRegisterSchema } from "./auth.schema";
+import { userLoginSchema, userRegisterSchema } from "./auth.schema";
 
 
 
@@ -13,6 +13,8 @@ export default async function authRoutes(app: any) {
     const service = new AuthService(repo);
     const controller = new AuthController(service);
 
-    app.post('/', { schema: userRegisterSchema }, controller.create);
+    app.post('/', { schema: userRegisterSchema }, controller.create)
+        .post('/login', { schema: userLoginSchema }, controller.login);
+
 
 }

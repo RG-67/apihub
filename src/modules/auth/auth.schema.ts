@@ -56,7 +56,10 @@ const userLoginSchema = {
         type: "object",
         required: ["email", "password"],
         properties: {
-            email: { type: "string" },
+            email: {
+                type: "string",
+                format: "email"
+            },
             password: { type: "string" }
         }
     },
@@ -66,11 +69,19 @@ const userLoginSchema = {
             properties: {
                 status: { type: "boolean" },
                 message: { type: "string" },
-                data: user
+                data: {
+                    type: "object",
+                    properties: {
+                        id: {type: "string"},
+                        name: {type: "string"},
+                        email: {type: "string"},
+                        role: {type: "string"}
+                    }
+                }
             }
         },
 
-        404: {
+        401: {
             type: "object",
             properties: {
                 status: { type: "boolean" },
@@ -90,4 +101,4 @@ const userLoginSchema = {
 
 
 
-export { userRegisterSchema, userLoginSchema };
+export { userRegisterSchema, userLoginSchema, user };
