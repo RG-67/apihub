@@ -28,7 +28,7 @@ export class AuthService {
                 }
                 const token = jwt.sign({
                     data: userData
-                }, process.env.JWT_SECRET_KEY as string, { expiresIn: '10m' });
+                }, process.env.JWT_SECRET_KEY as string, { expiresIn: '15m' });
                 const { id, name, email, role } = user.rows[0];
                 return { id, name, email, role, token };
             }

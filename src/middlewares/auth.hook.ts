@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import dotEnv from 'dotenv';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 dotEnv.config();
 
@@ -15,6 +15,7 @@ export const AuthHook = async (req: FastifyRequest, res: FastifyReply) => {
         if (decoded.data.role !== "user") {
             return res.code(401).send({ status: false, message: "Unauthorized access" });
         }
+        req.query = decoded.data.id;
     } catch (error: any) {
         return res.code(401).send({ status: false, message: "Token expired" });
     }

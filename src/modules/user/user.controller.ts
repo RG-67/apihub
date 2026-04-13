@@ -11,7 +11,6 @@ export class UserController {
     getUserProfile = async (req: FastifyRequest, res: FastifyReply) => {
         try {
             const userData = await this.service.userProfileService(req.query as any);
-            console.log(userData);
             if (userData) {
                 return res.code(200).send({ status: true, message: "User data get successfully", data: userData });
             }
