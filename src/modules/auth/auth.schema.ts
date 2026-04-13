@@ -102,4 +102,4 @@ const userLoginSchema = {
 
 
 
-export { userRegisterSchema, userLoginSchema, user };
+export { userRegisterSchema, userLoginSchema };
