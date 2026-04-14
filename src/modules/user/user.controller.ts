@@ -2,8 +2,6 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { UserService } from "./user.sevices";
 
 
-
-
 export class UserController {
 
     constructor(private service: UserService) { }
@@ -20,7 +18,7 @@ export class UserController {
         }
     }
 
-    userStatus = async (req: FastifyRequest, res: FastifyReply) => {
+    applyForProvider = async (req: FastifyRequest, res: FastifyReply) => {
         try {
             const status = await this.service.userStatus(req.query as any);
             if (status) {

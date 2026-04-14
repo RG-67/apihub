@@ -11,8 +11,7 @@ export class UserRepository {
     }
 
     async createProvider(id: string) {
-        const updateStatus = await this.db.query(`UPDATE users SET provider_status="applied" WHERE id=$1`, [id]);
-        console.log(updateStatus);
+        const updateStatus = await this.db.query(`UPDATE users SET provider_status='pending' WHERE id=$1`, [id]);
         return updateStatus;
     }
 
