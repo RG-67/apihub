@@ -10,4 +10,10 @@ export class UserRepository {
         return userData;
     }
 
+    async createProvider(id: string) {
+        const updateStatus = await this.db.query(`UPDATE users SET provider_status="applied" WHERE id=$1`, [id]);
+        console.log(updateStatus);
+        return updateStatus;
+    }
+
 }

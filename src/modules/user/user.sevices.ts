@@ -18,4 +18,17 @@ export class UserService {
         }
     }
 
+    async userStatus(id: string) {
+        try {
+            const status = await this.repo.createProvider(id);
+            console.log("STATUS: ", status);
+            if (Number(status.rowCount) > 0) {
+                return status.rows[0];
+            }
+            return false;
+        } catch (error) {
+            return false;
+        }
+    }
+
 }

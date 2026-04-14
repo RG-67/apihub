@@ -20,4 +20,17 @@ export class UserController {
         }
     }
 
+    userStatus = async (req: FastifyRequest, res: FastifyReply) => {
+        try {
+            const status = await this.service.userStatus(req.query as any);
+            if (status) {
+                return res.code(200).send({ status: true, message: "Applied successfully, wait for admin approval" });
+            }
+            return res.code(404).send({ status: false, message: "Failed to apply" });
+        } catch (error: any) {
+            return res.code(500).send({ status: false, message: error.message });
+        }
+    }
+
+
 }

@@ -12,6 +12,7 @@ export default async function UserRoute(app: any) {
     const userService = new UserService(userRepo);
     const userController = new UserController(userService);
 
-    app.post('/profile', { preHandler: [AuthHook], schema: userProfile }, userController.getUserProfile);
+    app.post('/profile', { preHandler: [AuthHook], schema: userProfile }, userController.getUserProfile)
+        .get('/provider', { preHandler: [AuthHook] }, userController.userStatus);
 
 }
