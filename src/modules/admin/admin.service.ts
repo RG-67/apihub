@@ -1,4 +1,5 @@
 import { AdminRepository } from "./admin.repository";
+import { userStatusType } from "./admin.types";
 
 
 
@@ -10,11 +11,24 @@ export class AdminService {
         try {
             const users = await this.repo.getUsers();
             if (Number(users.rowCount) > 0) {
-                console.log("USERS: ", users.rows);
                 return users.rows;
             }
             return false;
-        } catch (error) {
+        } catch (error: any) {
+            return false;
+        }
+    }
+
+    async updateStatus(userStatusReq: userStatusType) {
+        try {
+            const userStatus = await this.repo.createProvider(userStatusReq);
+            console.log("USRST: ", userStatus);
+            if (Number(userStatus.rowCount) > 0) {
+                return true;
+            }
+            return false;
+        } catch (error: any) {
+            console.error("ERR: ", error.message);
             return false;
         }
     }

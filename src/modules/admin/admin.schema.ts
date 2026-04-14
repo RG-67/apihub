@@ -13,9 +13,14 @@ const usersWithRole = {
 }
 
 
-const users = {
-    response: {
+const updateStatusResponse = {
+    status: { type: "boolean" },
+    message: { type: "string" }
+}
 
+
+const usersSchema = {
+    response: {
         200: {
             type: "object",
             properties: {
@@ -40,10 +45,37 @@ const users = {
                 message: { type: "string" }
             }
         }
+    }
+}
 
+
+const updateStatusSchema = {
+    body: {
+        type: "object",
+        required: ["id", "role", "status"],
+        properties: {
+            id: { type: "string" },
+            role: { type: "string" },
+            status: { type: "string" }
+        }
+    },
+
+    response: {
+        200: {
+            type: "object",
+            properties: updateStatusResponse
+        },
+        404: {
+            type: "object",
+            properties: updateStatusResponse
+        },
+        500: {
+            type: "object",
+            properties: updateStatusResponse
+        }
     }
 }
 
 
 
-export { users };
+export { usersSchema, updateStatusSchema };
