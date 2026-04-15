@@ -13,7 +13,7 @@ export class AdminRepository {
     }
 
     async createProvider(userStatus: userStatusType) {
-        const updateStatus = await this.db.query(`UPDATE users SET role=$1 AND provider_status=$2 WHERE id=$3`, [userStatus.role, userStatus.status, userStatus.id]);
+        const updateStatus = await this.db.query(`UPDATE users SET role=$1, provider_status=$2 WHERE id=$3`, [userStatus.role, userStatus.status, userStatus.id]);
         return updateStatus;
     }
 

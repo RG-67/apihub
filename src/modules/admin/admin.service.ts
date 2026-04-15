@@ -22,13 +22,11 @@ export class AdminService {
     async updateStatus(userStatusReq: userStatusType) {
         try {
             const userStatus = await this.repo.createProvider(userStatusReq);
-            console.log("USRST: ", userStatus);
             if (Number(userStatus.rowCount) > 0) {
                 return true;
             }
             return false;
         } catch (error: any) {
-            console.error("ERR: ", error.message);
             return false;
         }
     }
