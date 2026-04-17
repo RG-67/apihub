@@ -1,6 +1,6 @@
 
 
-export interface providerApi {
+export interface providerApiType {
     providerId: string,
     name: string,
     description: string,
@@ -11,7 +11,7 @@ export interface providerApi {
     rateLimit: string
 }
 
-export interface updateApi {
+export interface updateApiType {
     apiId: string,
     providerId: string,
     status: string,
