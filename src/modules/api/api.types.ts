@@ -10,3 +10,10 @@ export interface providerApi {
     price: string,
     rateLimit: string
 }
+
+export interface updateApi {
+    apiId: string,
+    providerId: string,
+    status: string,
+    isPublic: boolean
+}

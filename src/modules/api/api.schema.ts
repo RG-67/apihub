@@ -22,7 +22,7 @@ const createApiSchema = {
     body: providerApi,
 
     response: {
-        200: {
+        201: {
             type: "object",
             properties: {
                 status: { type: "boolean" },
@@ -59,6 +59,13 @@ const createApiSchema = {
 
     }
 
+}
+
+
+const updateApiSchema = {
+    body: {
+        
+    }
 }
 
 
