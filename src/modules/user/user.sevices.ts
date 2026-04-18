@@ -30,4 +30,17 @@ export class UserService {
         }
     }
 
+    async getFilteredApi(keyWord: string) {
+        try {
+            console.log("KKKKKK: ", keyWord);
+            const apiData = await this.repo.filterApiByLetter(keyWord);
+            if (Number(apiData.rowCount) > 0 && apiData.rows.length > 0) {
+                return apiData.rows;
+            }
+            return false;
+        } catch (error) {
+            false;
+        }
+    }
+
 }

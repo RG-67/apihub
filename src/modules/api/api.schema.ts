@@ -27,7 +27,7 @@ const updateApi = {
 const providerApiDetails = {
     type: "array",
     properties: {
-        "apId": { type: "string" },
+        "apiId": { type: "string" },
         "providerId": { type: "string" },
         "name": { type: "string" },
         "description": { type: "string" },

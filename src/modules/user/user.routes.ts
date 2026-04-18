@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import { UserRepository } from "./user.repository";
 import { UserService } from "./user.sevices";
 import { UserController } from "./user.controller";
-import { userProfile } from "./user.schema";
+import { filteredApiSchema, userProfile } from "./user.schema";
 import { AuthHook } from "../../middlewares/auth.hook";
 
 
@@ -14,5 +14,6 @@ export default async function UserRoute(app: any) {
 
     app.post('/profile', { preHandler: [AuthHook], schema: userProfile }, userController.getUserProfile)
         .post('/provider', { preHandler: [AuthHook] }, userController.applyForProvider);
+    app.get('filteredApi/', { schema: filteredApiSchema }, userController.filteredApi);
 
 }

@@ -13,9 +13,24 @@ const user = {
     }
 }
 
+const providerApiDetails = {
+    type: "array",
+    properties: {
+        "apiId": { type: "string" },
+        "providerId": { type: "string" },
+        "name": { type: "string" },
+        "description": { type: "string" },
+        "baseUrl": { type: "string" },
+        "endpoint": { type: "string" },
+        "method": { type: "string" },
+        "price": { type: "string" },
+        "rateLimit": { type: "string" }
+    }
+}
+
 
 const userProfile = {
-    querystring: {
+    queryString: {
         type: "object",
         properties: {
             id: { type: "string" }
@@ -50,5 +65,45 @@ const userProfile = {
 }
 
 
+const filteredApiSchema = {
+    queryString: {
+        type: "object",
+        properties: {
+            keyWord: { type: "string" }
+        }
+    },
 
-export { userProfile };
+    response: {
+
+        200: {
+            type: "object",
+            properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                data: providerApiDetails
+            }
+        },
+
+        404: {
+            type: "object",
+            properties: {
+                status: { type: "boolean" },
+                message: { type: "string" }
+            }
+        },
+
+        500: {
+            type: "object",
+            properties: {
+                status: { type: "boolean" },
+                message: { type: "string" }
+            }
+        }
+
+    }
+
+}
+
+
+
+export { userProfile, filteredApiSchema };

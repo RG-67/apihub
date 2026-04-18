@@ -31,4 +31,18 @@ export class UserController {
     }
 
 
+    filteredApi = async (req: FastifyRequest, res: FastifyReply) => {
+        try {
+            const { keyWord } = req.query as any;
+            const apiData = await this.service.getFilteredApi(keyWord);
+            if (apiData) {
+                return res.code(200).send({ status: true, message: "Apis found successfullly", data: apiData });
+            }
+            return res.code(404).send({ status: false, message: "Apis not found" });
+        } catch (error: any) {
+            return res.code(500).send({ status: false, message: error.message });
+        }
+    }
+
+
 }
