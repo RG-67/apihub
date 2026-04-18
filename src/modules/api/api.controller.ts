@@ -19,11 +19,15 @@ export class ApiController {
         }
     }
 
-    updateApi = async(req: FastifyRequest, res: FastifyReply) => {
+    updateApi = async (req: FastifyRequest, res: FastifyReply) => {
         try {
-            // const apiData = await this.service.updateApi()
-        } catch (error) {
-            
+            const api = await this.service.updateApi(req.body as any);
+            if (api) {
+                return res.code(200).send({ status: true, message: "Api data updated successfully" });
+            }
+            return res.code(404).send({ status: false, message: "Api data not found" });
+        } catch (error: any) {
+            return res.code(500).send({ status: false, message: error.message });
         }
     }
 

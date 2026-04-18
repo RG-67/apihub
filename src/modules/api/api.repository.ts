@@ -20,9 +20,15 @@ export class ApiRepository {
 
 
     async updateApi(apiReq: updateApiType) {
-        const api = await this.db.query('UPDATE apis SET status=$1, is_public=$2 updated_at=CURRENT_TIMESTAMP WHERE id=$3 AND provider_id=$4',
+        const api = await this.db.query('UPDATE apis SET status=$1, is_public=$2, updated_at=CURRENT_TIMESTAMP WHERE id=$3 AND provider_id=$4',
             [apiReq.status, apiReq.isPublic, apiReq.apiId, apiReq.providerId]
         );
+        return api;
+    }
+
+    async getApiByProvider(providerId: string) {
+        const api = await this.db.query(`SELECT id as apiId, provider_id as providerId, name, description, base_url as baseUrl, 
+            endpoint, method, price, rate_limit as rateLimit, status, is_public as isPublic WHERE provider_id=$1`, [providerId]);
         return api;
     }
 

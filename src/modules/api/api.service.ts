@@ -28,7 +28,7 @@ export class ApiService {
                 return true;
             }
             return false;
-        } catch (error) {
+        } catch (error: any) {
             return false;
         }
     }
