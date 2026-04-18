@@ -33,4 +33,16 @@ export class ApiService {
         }
     }
 
+    async getProviderApi(providerId: string) {
+        try {
+            const api = await this.repo.getApiByProvider(providerId);
+            if (Number(api.rowCount) > 0) {
+                return api.rows;
+            }
+            return false;
+        } catch (error: any) {
+            return false;
+        }
+    }
+
 }

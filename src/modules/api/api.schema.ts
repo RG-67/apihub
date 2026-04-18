@@ -113,7 +113,7 @@ const providerApiSchema = {
     queryString: {
         type: "objetc",
         properties: {
-            id: { type: "string" }
+            providerId: { type: "string" }
         }
     },
 

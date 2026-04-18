@@ -31,4 +31,18 @@ export class ApiController {
         }
     }
 
+    getProviderApi = async (req: FastifyRequest, res: FastifyReply) => {
+        try {
+            const { providerId } = req.query as any;
+            const api = await this.service.getProviderApi(providerId);
+            if (api) {
+                return res.code(200).send({ status: true, message: "Apis retreived successfully", data: api });
+            }
+            return res.code(404).send({ status: false, message: "APis not found or provider id not found" });
+        } catch (error: any) {
+            return res.code(500).send({ status: false, message: error.message });
+        }
+    }
+
+
 }

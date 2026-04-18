@@ -28,7 +28,7 @@ export class ApiRepository {
 
     async getApiByProvider(providerId: string) {
         const api = await this.db.query(`SELECT id as apiId, provider_id as providerId, name, description, base_url as baseUrl, 
-            endpoint, method, price, rate_limit as rateLimit, status, is_public as isPublic WHERE provider_id=$1`, [providerId]);
+            endpoint, method, price, rate_limit as rateLimit, status, is_public as isPublic FROM apis WHERE provider_id=$1`, [providerId]);
         return api;
     }
 
