@@ -16,9 +16,9 @@ export class UserRepository {
     }
 
     async filterApiByLetter(keyWord: string) {
-        const getApi = await this.db.query(`SELECT id as apiId, provider_id as providerId, name, description, base_url as baseUrl, 
-            endpoint, method, price, rate_limit as rateLimit FROM apis WHERE (name ILIKE '%$1%' OR description ILIKE '%$1%') AND status=$2 AND is_public=$3`,
-            [keyWord, "active", true]);
+        const getApi = await this.db.query(`SELECT id as apiId, name, description, price
+            FROM apis WHERE (name ILIKE $1 OR description ILIKE $1) AND status=$2 AND is_public=$3`,
+            [`%${keyWord}%`, "active", true]);
         return getApi;
     }
 

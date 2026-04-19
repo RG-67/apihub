@@ -14,6 +14,7 @@ export default async function UserRoute(app: any) {
 
     app.post('/profile', { preHandler: [AuthHook], schema: userProfile }, userController.getUserProfile)
         .post('/provider', { preHandler: [AuthHook] }, userController.applyForProvider);
-    app.get('filteredApi/', { schema: filteredApiSchema }, userController.filteredApi);
+
+    app.get('/filter', { schema: filteredApiSchema }, userController.filteredApi);
 
 }

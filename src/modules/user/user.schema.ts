@@ -17,14 +17,9 @@ const providerApiDetails = {
     type: "array",
     properties: {
         "apiId": { type: "string" },
-        "providerId": { type: "string" },
         "name": { type: "string" },
         "description": { type: "string" },
-        "baseUrl": { type: "string" },
-        "endpoint": { type: "string" },
-        "method": { type: "string" },
-        "price": { type: "string" },
-        "rateLimit": { type: "string" }
+        "price": { type: "string" }
     }
 }
 
