@@ -8,10 +8,3 @@ export interface subscriptionType {
     startDate: string,
     endDate: string
 }
-
-
-export interface apiKeyType {
-    userId: string,
-    apiId: string,
-    apiKey: string
-}
