@@ -1,28 +1,30 @@
 import { randomBytes } from "node:crypto";
 import { SubscriptionRepository } from "./subscription.repository";
 import { subscriptionType } from "./subscription.types";
+import { ApiKeyService } from "../apiKey/apiKey.service";
 
 
 
 export class SubscriptionService {
 
-    constructor(private subscriptionRepo: SubscriptionRepository) { }
+    constructor(
+        private subscriptionRepo: SubscriptionRepository,
+        private apiKeyService: ApiKeyService) { }
 
 
-    async createSubscription(apiReq: subscriptionType): Promise<string | object> {
+    async createSubscription(apiReq: subscriptionType) {
         try {
             const data = await this.subscriptionRepo.userSubscribe(apiReq);
             if (Number(data.rowCount) > 0) {
-                const apiKey = randomBytes(32).toString("hex");
-                /* const keyDetails = await this.repo.generateApiKey(apiReq.userId, apiReq.apiId, apiKey);
-                if (Number(keyDetails.rowCount) > 0) {
-                    return keyDetails.rows[0];
-                } */
-                return "key already generated";
+                const insertApiKey = await this.apiKeyService.insertApiKey(apiReq.userId, apiReq.apiId);
+                if (insertApiKey) {
+                    return true;
+                }
+                return false;
             }
-            return "already subscribed";
-        } catch (error: any) {
-            return error.message;
+            return false;
+        } catch (error) {
+            return false
         }
     }
 
