@@ -4,6 +4,7 @@ import authRoutes from './modules/auth/auth.routes';
 import UserRoute from './modules/user/user.routes';
 import adminRoute from './modules/admin/admin.route';
 import { apiRoute } from './modules/api/api.route';
+import subscriptionRoute from './modules/subscription/subscription.route';
 
 
 
@@ -16,6 +17,7 @@ export const buildApp = () => {
     app.register(UserRoute, { prefix: 'api/v1/user' });
     app.register(adminRoute, { prefix: 'api/v1/admin' });
     app.register(apiRoute, { prefix: 'api/v1/provider' });
+    app.register(subscriptionRoute, { prefix: 'api/v1/subscription' });
 
     return app;
 }

@@ -11,15 +11,15 @@ const subscribeData = {
 
 const createSubscription = {
     body: {
-        userId: { type: "string" },
-        apiId: { type: "string" },
-        status: { type: "string" },
-        startDate: { type: "string" },
-        endDate: { type: "string" }
+        type: "object",
+        properties: {
+            userId: { type: "string" },
+            apiId: { type: "string" }
+        }
     },
 
     response: {
-        200: {
+        201: {
             type: "object",
             properties: {
                 status: { type: "boolean" },
@@ -28,7 +28,7 @@ const createSubscription = {
             }
         },
 
-        400: {
+        409: {
             type: "object",
             properties: {
                 status: { type: "boolean" },

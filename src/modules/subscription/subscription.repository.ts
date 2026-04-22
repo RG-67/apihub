@@ -9,8 +9,8 @@ export class SubscriptionRepository {
     async userSubscribe(subsReq: subscriptionType) {
         const insertData = await this.db.query(`
             INSERT INTO subscriptions (user_id, api_id, status, start_date, end_date) VALUES
-            ($1, $2, $3, $4, $5) RETURNING id as "subscriptionId"
-            `, [subsReq.userId, subsReq.apiId, subsReq.status, subsReq.startDate, subsReq.endDate]);
+            ($1, $2, $3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP + INTERVAL '30 days') RETURNING id as "subscriptionId"
+            `, [subsReq.userId, subsReq.apiId, 'active']);
         return insertData;
     }
 
