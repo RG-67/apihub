@@ -13,7 +13,7 @@ export class ApiKeyService {
             const apiKey = randomBytes(32).toString("hex");
             const data = await this.repo.generateApiKey(userId, apiId, apiKey);
             if (Number(data.rowCount) > 0) {
-                return true;
+                return data.rows[0];
             }
             return false;
         } catch (error) {
