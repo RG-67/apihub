@@ -9,7 +9,8 @@ export class SubscriptionService {
 
     constructor(
         private subscriptionRepo: SubscriptionRepository,
-        private apiKeyService: ApiKeyService) { }
+        private apiKeyService: ApiKeyService
+    ) { }
 
 
     async createSubscription(apiReq: subscriptionType) {
