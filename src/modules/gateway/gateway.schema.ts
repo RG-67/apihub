@@ -7,12 +7,7 @@ const getUrlByApiKeySchema = {
     queryString: {
         type: "object",
         properties: {
-            id: { type: "string" }
-        }
-    },
-    body: {
-        type: "object",
-        properties: {
+            id: { type: "string" },
             apiId: { type: "string" }
         }
     },
