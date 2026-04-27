@@ -2,6 +2,6 @@
 
 
 export interface apiKeyReqType {
-    userId: string,
+    id: string,
     apiId: string
 }

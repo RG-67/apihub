@@ -11,6 +11,7 @@ export class GatewayController {
 
     getApiKey = async (req: FastifyRequest, res: FastifyReply) => {
         try {
+            console.log("REQ: ", req.query);
             const apiKey = await this.gatewayService.getApiKey(req.query as any);
             if (apiKey) {
                 return res.code(200).send({ status: true, message: "Api key found successfully", data: apiKey });
