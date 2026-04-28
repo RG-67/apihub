@@ -8,7 +8,8 @@ export class UserController {
 
     getUserProfile = async (req: FastifyRequest, res: FastifyReply) => {
         try {
-            const userData = await this.service.userProfileService(req.query as any);
+            const { id } = req.query as any;
+            const userData = await this.service.userProfileService(id);
             if (userData) {
                 return res.code(200).send({ status: true, message: "User data get successfully", data: userData });
             }
@@ -20,7 +21,8 @@ export class UserController {
 
     applyForProvider = async (req: FastifyRequest, res: FastifyReply) => {
         try {
-            const status = await this.service.userStatus(req.query as any);
+            const { id } = req.query as any;
+            const status = await this.service.userStatus(id);
             if (status) {
                 return res.code(200).send({ status: true, message: "Applied successfully, wait for admin approval" });
             }

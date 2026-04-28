@@ -12,11 +12,11 @@ export class GatewayController {
     getApiKey = async (req: FastifyRequest, res: FastifyReply) => {
         try {
             console.log("REQ: ", req.query);
-            const apiKey = await this.gatewayService.getApiKey(req.query as any);
-            if (apiKey) {
-                return res.code(200).send({ status: true, message: "Api key found successfully", data: apiKey });
+            const url = await this.gatewayService.getApiKey(req.query as any);
+            if (url.status) {
+                return res.code(200).send(url);
             }
-            return res.code(404).send({ status: false, message: "Invalid userId or apiId" });
+            return res.code(404).send(url);
         } catch (error: any) {
             return res.code(500).send({ status: false, message: error.message });
         }

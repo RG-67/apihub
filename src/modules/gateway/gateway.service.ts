@@ -8,30 +8,26 @@ export class GatewayService {
 
     constructor(private gatewayRepo: GatewayRepository) { }
 
-    async getApiKey(apiKeyreq: apiKeyReqType) {
+    async getApiKey(apiKeyreq: apiKeyReqType): Promise<{ status: boolean; message?: string; data?: string; error?: string }> {
         try {
             const verify = await this.gatewayRepo.verifyApi(apiKeyreq);
-            console.log("VERIFY: ", verify);
             if (Number(verify.rowCount) > 0) {
                 const getKey = await this.gatewayRepo.getApiKey(apiKeyreq);
-                console.log("KEY: ", getKey);
                 if (Number(getKey.rowCount) > 0) {
                     const url = await this.gatewayRepo.getUrl(apiKeyreq.apiId);
-                    console.log("URL: ", url);
                     if (Number(url.rowCount) > 0) {
-                        return url.rows[0];
+                        return { status: true, message: "Api key found successfully", data: url.rows[0] as string };
                     }
-                    return false;
+                    return { status: false, message: "url not found" };
                 }
-                return false;
+                return { status: false, message: "api key not found" };
             }
-            return false;
+            return { status: false, message: "Invalid user id or api id" };
         } catch (error: any) {
-            console.log("ERR_MSG: ", error.message);
-            return false;
+            return { status: false, message: error.message };
         }
     }
 
 
-    
+
 }
