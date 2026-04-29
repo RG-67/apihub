@@ -24,7 +24,7 @@ export class UserController {
             const { id } = req.query as any;
             const status = await this.service.userStatus(id);
             if (status) {
-                return res.code(200).send({ status: true, message: "Applied successfully, wait for admin approval" });
+                return res.code(200).send({ status: true, message: "Applied successfully, wait for admin approval" }); 
             }
             return res.code(404).send({ status: false, message: "Failed to apply" });
         } catch (error: any) {
