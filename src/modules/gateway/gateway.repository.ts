@@ -13,7 +13,7 @@ export class GatewayRepository {
     }
 
     async getApiKey(apiKeyreq: apiKeyReqType) {
-        const apiKey = await this.db.query(`SELECT api_key as apiKey FROM api_keys WHERE user_id=$1 AND api_id=$2`, [apiKeyreq.id, apiKeyreq.apiId]);
+        const apiKey = await this.db.query(`SELECT api_key as "apiKey" FROM api_keys WHERE user_id=$1 AND api_id=$2`, [apiKeyreq.id, apiKeyreq.apiId]);
         return apiKey;
     }
 

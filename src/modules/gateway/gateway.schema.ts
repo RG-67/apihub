@@ -22,6 +22,7 @@ const getUrlByApiKeySchema = {
                 data: {
                     type: "object",
                     properties: {
+                        apiKey: { type: "string" },
                         url: { type: "string" }
                     }
                 }
