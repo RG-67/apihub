@@ -57,6 +57,13 @@ const getRateLimitSchema = {
         }
     },
 
+    body: {
+        type: "object",
+        properties: {
+            url: { type: "string"}
+        }
+    },
+
     response: {
         200: {
             type: "object",

@@ -33,11 +33,15 @@ export class GatewayService {
     }
 
 
-    async getRateLimit(apiKey: string): Promise<{ status: boolean; message?: string; data?: any; error?: string }> {
+    async getRateLimit(apiKey: string, url: string): Promise<{ status: boolean; message?: string; data?: any; error?: string }> {
         try {
             const apiId = await this.gatewayRepo.getApiId(apiKey);
             if (Number(apiId.rowCount) > 0) {
-                const rateLimit = await this.gatewayRepo.getRateLimit(apiId.rows[0].apiId);
+                const apiReqForLimit = {
+                    apiId: apiId.rows[0].apiId,
+                    url: url
+                }
+                const rateLimit = await this.gatewayRepo.getRateLimit(apiReqForLimit);
                 if (Number(rateLimit.rowCount) > 0) {
                     return { status: true, message: "Data fetch successfully", data: rateLimit.rows[0] };
                 }
@@ -48,6 +52,7 @@ export class GatewayService {
             return { status: false, message: error.message };
         }
     }
+
 
 
 

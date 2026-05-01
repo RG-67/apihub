@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { apiKeyReqType } from "./gateway.types";
+import { apiKeyReqType, rateLimitType } from "./gateway.types";
 
 
 
@@ -28,8 +28,8 @@ export class GatewayRepository {
     }
 
 
-    async getRateLimit(apiId: string) {
-        const limit = await this.db.query(`SELECT rate_limit as "rateLimit" FROM apis WHERE id=$1`, [apiId]);
+    async getRateLimit(apiReq: rateLimitType) {
+        const limit = await this.db.query(`SELECT rate_limit as "rateLimit" FROM apis WHERE id=$1 AND (base_url || endpoint)=$2`, [apiReq.apiId, apiReq.url]);
         return limit;
     }
 

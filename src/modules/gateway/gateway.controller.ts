@@ -25,7 +25,8 @@ export class GatewayController {
     getRateLimit = async (req: FastifyRequest, res: FastifyReply) => {
         try {
             const { apiKey } = req.query as any;
-            const limit = await this.gatewayService.getRateLimit(apiKey);
+            const { url } = req.body as any;
+            const limit = await this.gatewayService.getRateLimit(apiKey, url);
             if (limit.status) {
                 return res.code(200).send(limit);
             }

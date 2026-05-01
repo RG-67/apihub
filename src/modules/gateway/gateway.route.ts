@@ -14,6 +14,6 @@ export function gatewayRoute(app: any) {
     const gatewayController = new GatewayController(gatewayService);
 
     app.post('/apiKey', { preHandler: [AuthHook], schema: getUrlByApiKeySchema }, gatewayController.getApiKey);
-    app.get('/rateLimit', { schema: getRateLimitSchema }, gatewayController.getRateLimit);
+    app.post('/rateLimit', { schema: getRateLimitSchema }, gatewayController.getRateLimit);
 
 }
