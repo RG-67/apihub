@@ -33,5 +33,22 @@ export class GatewayService {
     }
 
 
+    async getRateLimit(apiKey: string): Promise<{ status: boolean; message?: string; data?: any; error?: string }> {
+        try {
+            const apiId = await this.gatewayRepo.getApiId(apiKey);
+            if (Number(apiId.rowCount) > 0) {
+                const rateLimit = await this.gatewayRepo.getRateLimit(apiId.rows[0].apiId);
+                if (Number(rateLimit.rowCount) > 0) {
+                    return { status: true, message: "Data fetch successfully", data: rateLimit.rows[0] };
+                }
+                return { status: false, message: "Invalid data" };
+            }
+            return { status: false, message: "Invalid api id" };
+        } catch (error: any) {
+            return { status: false, message: error.message };
+        }
+    }
+
+
 
 }

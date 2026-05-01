@@ -22,4 +22,17 @@ export class GatewayRepository {
         return url;
     }
 
+    async getApiId(apiKey: string) {
+        const id = await this.db.query(`SELECT api_id as "apiId" FROM api_keys WHERE api_key=$1`, [apiKey]);
+        return id;
+    }
+
+
+    async getRateLimit(apiId: string) {
+        const limit = await this.db.query(`SELECT rate_limit as "rateLimit" FROM apis WHERE id=$1`, [apiId]);
+        return limit;
+    }
+
+
+
 }
