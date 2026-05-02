@@ -1,3 +1,4 @@
+import { redis } from "../../config/redis";
 import { GatewayRepository } from "./gateway.repository";
 import { apiKeyReqType } from "./gateway.types";
 
@@ -36,18 +37,33 @@ export class GatewayService {
     async getRateLimit(apiKey: string, url: string): Promise<{ status: boolean; message?: string; data?: any; error?: string }> {
         try {
             const apiId = await this.gatewayRepo.getApiId(apiKey);
-            if (Number(apiId.rowCount) > 0) {
-                const apiReqForLimit = {
-                    apiId: apiId.rows[0].apiId,
-                    url: url
-                }
-                const rateLimit = await this.gatewayRepo.getRateLimit(apiReqForLimit);
-                if (Number(rateLimit.rowCount) > 0) {
-                    return { status: true, message: "Data fetch successfully", data: rateLimit.rows[0] };
-                }
-                return { status: false, message: "Invalid data" };
+            if (Number(apiId.rowCount) === 0) {
+                return { status: false, message: "Invalid api id" };
             }
-            return { status: false, message: "Invalid api id" };
+
+            const apiReqForLimit = {
+                apiId: apiId.rows[0].apiId,
+                url: url
+            }
+            const rateLimit = await this.gatewayRepo.getRateLimit(apiReqForLimit);
+            if (Number(rateLimit.rowCount) === 0) {
+                return { status: false, message: "Invalid URL" };
+            }
+            const limit = rateLimit.rows[0].rateLimit;
+            const window = 60;
+            const key = `rate:${apiKey}:${url}`;
+            const current = await redis.incr(key);
+
+            if (Number(current) === 1) {
+                await redis.expire(key, window);
+            }
+
+            if (current > limit) {
+                return { status: false, message: `Rate limit exceed, Max ${limit} requests per minute`, error: "RATE_LIMIT_EXCEED" };
+            }
+
+            return { status: true, message: "Data fetch successfully", data: rateLimit.rows[0] };
+
         } catch (error: any) {
             return { status: false, message: error.message };
         }

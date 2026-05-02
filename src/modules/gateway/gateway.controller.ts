@@ -1,5 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { GatewayService } from "./gateway.service";
+import { error } from "node:console";
 
 
 
@@ -29,6 +30,12 @@ export class GatewayController {
             const limit = await this.gatewayService.getRateLimit(apiKey, url);
             if (limit.status) {
                 return res.code(200).send(limit);
+            }
+            if (limit.error === "RATE_LIMIT_EXCEED") {
+                return res.code(429).send({
+                    status: limit.status,
+                    message: limit.message
+                });
             }
             return res.code(404).send(limit);
         } catch (error: any) {

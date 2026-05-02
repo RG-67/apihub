@@ -60,7 +60,7 @@ const getRateLimitSchema = {
     body: {
         type: "object",
         properties: {
-            url: { type: "string"}
+            url: { type: "string" }
         }
     },
 
@@ -79,11 +79,21 @@ const getRateLimitSchema = {
             }
         },
 
+        429: {
+            type: "object",
+            properties: {
+                status: { type: "boolean" },
+                message: { type: "string" },
+                error: { type: "string" }
+            }
+        },
+
         404: {
             type: "object",
             properties: {
                 status: { type: "boolean" },
-                message: { type: "string" }
+                message: { type: "string" },
+                error: { type: "string" }
             }
         },
 
@@ -91,7 +101,8 @@ const getRateLimitSchema = {
             type: "object",
             properties: {
                 status: { type: "boolean" },
-                message: { type: "string" }
+                message: { type: "string" },
+                error: { type: "string" }
             }
         }
 
